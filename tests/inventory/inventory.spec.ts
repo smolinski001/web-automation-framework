@@ -1,20 +1,14 @@
 import { test, expect } from "@fixtures/base";
 
-test("should display inventory page after login", async ({
-  page,
-  loggedInPage,
-}) => {
+test("should display inventory page after login", async ({ authenticatedPages, page }) => {
   await expect(page).toHaveURL(/.*inventory.html/);
 });
 
-test("should display correct number of products", async ({
-  loggedInPage,
-  mainPage,
-}) => {
-  await expect(mainPage.classProduct).toHaveCount(6);
+test("should display correct number of products", async ({ authenticatedPages }) => {
+  await expect(authenticatedPages.mainPage.classProduct).toHaveCount(6);
 });
 
-test("should add product to cart", async ({ loggedInPage, mainPage }) => {
-  await mainPage.addItemToCart("Sauce Labs Backpack");
-  await expect(mainPage.cartNumber).toHaveText("1");
+test("should add product to cart", async ({ authenticatedPages }) => {
+  await authenticatedPages.mainPage.addItemToCart("Sauce Labs Backpack");
+  await expect(authenticatedPages.mainPage.cartNumber).toHaveText("1");
 });

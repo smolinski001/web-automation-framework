@@ -8,65 +8,43 @@ import { LoginPage } from "@pages/LoginPage";
 import { MainPage } from "@pages/MainPage";
 import { CompletePage } from "@pages/CompletePage";
 
-//fixtures
+//flows
 import { LoginFlow } from "@flows/LoginFlow";
 import { CartFlow } from "@flows/CartFlow";
+
+//data
 import { positiveUser } from "@data/users";
 
-type MyFixtures = {
+type Pages = {
   cartPage: CartPage;
   checkoutPage: CheckoutPage;
   completePage: CompletePage;
   finishPage: FinishPage;
   loginPage: LoginPage;
   mainPage: MainPage;
-  loginFlow: LoginFlow;
-  cartFlow: CartFlow;
-  loggedInPage: MainPage;
 };
 
-export const test = base.extend<MyFixtures>({
-  cartPage: async ({ page }, use) => {
-    const cartPage = new CartPage(page);
-    await use(cartPage);
+export const test = base.extend<{ pages: Pages; loginFlow: LoginFlow; authenticatedPages: Pages }>({
+  pages: async ({ page }, use) => {
+    await use({
+      cartPage: new CartPage(page),
+      checkoutPage: new CheckoutPage(page),
+      completePage: new CompletePage(page),
+      finishPage: new FinishPage(page),
+      loginPage: new LoginPage(page),
+      mainPage: new MainPage(page),
+    });
   },
 
-  checkoutPage: async ({ page }, use) => {
-    const checkoutPage = new CheckoutPage(page);
-    await use(checkoutPage);
-  },
-  completePage: async ({ page }, use) => {
-    const completePage = new CompletePage(page);
-    await use(completePage);
-  },
-  finishPage: async ({ page }, use) => {
-    const finishPage = new FinishPage(page);
-    await use(finishPage);
-  },
-
-  loginPage: async ({ page }, use) => {
-    const loginPage = new LoginPage(page);
-    await use(loginPage);
-  },
-
-  mainPage: async ({ page }, use) => {
-    const mainPage = new MainPage(page);
-    await use(mainPage);
-  },
-
-  loginFlow: async ({ loginPage }, use) => {
-    const loginFlow = new LoginFlow(loginPage);
+  loginFlow: async ({ pages }, use) => {
+    const loginFlow = new LoginFlow(pages.loginPage);
     await use(loginFlow);
   },
 
-  cartFlow: async ({ mainPage }, use) => {
-    const cartFlow = new CartFlow(mainPage);
-    await use(cartFlow);
-  },
-
-  loggedInPage: async ({ loginFlow, mainPage }, use) => {
+  authenticatedPages: async ({ loginFlow, pages }, use) => {
     await loginFlow.loginAs(positiveUser);
-    await use(mainPage);
+    await use(pages);
+    await pages.mainPage.clicklogOut();
   },
 });
 

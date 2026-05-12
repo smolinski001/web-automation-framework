@@ -28,6 +28,7 @@ export class MainPage {
   }
 
   async clicklogOut() {
+    await this.clickBtnBurger();
     await this.logOut.click();
   }
 
