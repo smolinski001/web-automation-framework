@@ -24,7 +24,7 @@ type Pages = {
   mainPage: MainPage;
 };
 
-export const test = base.extend<{ pages: Pages; loginFlow: LoginFlow; loggedInPage: Pages }>({
+export const test = base.extend<{ pages: Pages; loginFlow: LoginFlow; authenticatedPages: Pages }>({
   pages: async ({ page }, use) => {
     await use({
       cartPage: new CartPage(page),
@@ -41,10 +41,10 @@ export const test = base.extend<{ pages: Pages; loginFlow: LoginFlow; loggedInPa
     await use(loginFlow);
   },
 
-  loggedInPage: async ({ loginFlow, pages }, use) => {
+  authenticatedPages: async ({ loginFlow, pages }, use) => {
     await loginFlow.loginAs(positiveUser);
     await use(pages);
-    //teardown
+    await pages.mainPage.clicklogOut();
   },
 });
 
