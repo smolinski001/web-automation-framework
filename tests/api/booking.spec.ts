@@ -10,7 +10,7 @@ test("Testing API", async ({ request }) => {
 });
 
 test("single ID", async ({ request }) => {
-  const response = await request.get("https://restful-booker.herokuapp.com/booking/311");
+  const response = await request.get("https://restful-booker.herokuapp.com/booking/316");
   expect(response.status()).toBe(200);
 
   const body = await response.json();
