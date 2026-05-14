@@ -1,7 +1,7 @@
 import { test, expect } from "@fixtures/base";
 
 test("Testing API", async ({ request }) => {
-  const response = await request.get("https://restful-booker.herokuapp.com/booking");
+  const response = await request.get(`${process.env.API_BASE_URL!}/booking`);
   expect(response.status()).toBe(200);
 
   const body = await response.json();
@@ -10,7 +10,7 @@ test("Testing API", async ({ request }) => {
 });
 
 test("single ID", async ({ request }) => {
-  const response = await request.get("https://restful-booker.herokuapp.com/booking/316");
+  const response = await request.get(`${process.env.API_BASE_URL!}/booking/310`);
   expect(response.status()).toBe(200);
 
   const body = await response.json();
@@ -18,7 +18,7 @@ test("single ID", async ({ request }) => {
 });
 
 test("Testing POST", async ({ request }) => {
-  const response = await request.post("https://restful-booker.herokuapp.com/auth", {
+  const response = await request.post(`${process.env.API_BASE_URL!}/auth`, {
     data: { username: "admin", password: "password123" },
   });
   expect(response.status()).toBe(200);
