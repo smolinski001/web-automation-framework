@@ -10,7 +10,7 @@ test("Testing API", async ({ request }) => {
 });
 
 test("single ID", async ({ request }) => {
-  const response = await request.get(`${process.env.API_BASE_URL!}/booking/250`);
+  const response = await request.get(`${process.env.API_BASE_URL!}/booking/`);
   expect(response.status()).toBe(200);
 
   const body = await response.json();
