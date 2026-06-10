@@ -11,6 +11,7 @@ import { CompletePage } from "@pages/CompletePage";
 //flows
 import { LoginFlow } from "@flows/LoginFlow";
 import { CartFlow } from "@flows/CartFlow";
+import { CheckoutFlow } from "@flows/CheckoutFlow";
 
 //data
 import { positiveUser } from "@data/users";
@@ -24,7 +25,7 @@ type Pages = {
   mainPage: MainPage;
 };
 
-export const test = base.extend<{ pages: Pages; loginFlow: LoginFlow; authenticatedPages: Pages }>({
+export const test = base.extend<{ pages: Pages; loginFlow: LoginFlow; cartFlow: CartFlow; checkoutFlow: CheckoutFlow }>({
   pages: async ({ page }, use) => {
     await use({
       cartPage: new CartPage(page),
@@ -41,10 +42,15 @@ export const test = base.extend<{ pages: Pages; loginFlow: LoginFlow; authentica
     await use(loginFlow);
   },
 
-  authenticatedPages: async ({ loginFlow, pages }, use) => {
+  cartFlow: async ({ loginFlow, pages }, use) => {
     await loginFlow.loginAs(positiveUser);
-    await use(pages);
-    await pages.mainPage.clicklogOut();
+    const cartFlow = new CartFlow(pages.mainPage);
+    await use(cartFlow);
+  },
+
+  checkoutFlow: async ({ cartFlow, pages }, use) => {
+    const checkoutFlow = new CheckoutFlow(pages.cartPage, pages.checkoutPage, pages.finishPage, pages.completePage);
+    await use(checkoutFlow);
   },
 });
 

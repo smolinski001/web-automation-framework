@@ -10,4 +10,8 @@ export class CartFlow {
   async goToCart() {
     await this.mainPage.goToCart();
   }
+
+  async clicklogOut() {
+    await this.mainPage.clicklogOut();
+  }
 }
