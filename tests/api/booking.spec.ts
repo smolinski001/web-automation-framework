@@ -1,7 +1,7 @@
 import { test, expect } from "@fixtures/base";
 
-test("Testing API", async ({ request }) => {
-  const response = await request.get(`${process.env.API_BASE_URL!}/booking`);
+test("should return list of bookings", async ({ bookingClient }) => {
+  const response = await bookingClient.getBookingId();
   expect(response.status()).toBe(200);
 
   const body = await response.json();
@@ -9,10 +9,8 @@ test("Testing API", async ({ request }) => {
   expect(body.length).toBeGreaterThan(0);
 });
 
-test("Testing POST", async ({ request }) => {
-  const response = await request.post(`${process.env.API_BASE_URL!}/auth`, {
-    data: { username: "admin", password: "password123" },
-  });
+test("should return token for valid credentials", async ({ bookingClient }) => {
+  const response = await bookingClient.createToken("admin", "password123");
   expect(response.status()).toBe(200);
 
   const body = await response.json();

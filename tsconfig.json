@@ -1,19 +1,20 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "Node16",
+    "moduleResolution": "node16",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "ignoreDeprecations": "5.0",
+    "ignoreDeprecations": "6.0",
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
       "@pages/*": ["framework/pages/*"],
       "@flows/*": ["framework/flows/*"],
       "@fixtures/*": ["framework/fixtures/*"],
-      "@data/*": ["framework/data/*"]
+      "@data/*": ["framework/data/*"],
+      "@api/*": ["framework/api/*"]
     }
   },
   "include": ["tests", "framework", "playwright.config.ts"]

@@ -8,6 +8,9 @@ import { LoginPage } from "@pages/LoginPage";
 import { MainPage } from "@pages/MainPage";
 import { CompletePage } from "@pages/CompletePage";
 
+//API
+import { BookingClient } from "@api/clients/BookingClient";
+
 //flows
 import { LoginFlow } from "@flows/LoginFlow";
 import { CartFlow } from "@flows/CartFlow";
@@ -25,7 +28,13 @@ type Pages = {
   mainPage: MainPage;
 };
 
-export const test = base.extend<{ pages: Pages; loginFlow: LoginFlow; cartFlow: CartFlow; checkoutFlow: CheckoutFlow }>({
+export const test = base.extend<{
+  pages: Pages;
+  loginFlow: LoginFlow;
+  cartFlow: CartFlow;
+  checkoutFlow: CheckoutFlow;
+  bookingClient: BookingClient;
+}>({
   pages: async ({ page }, use) => {
     await use({
       cartPage: new CartPage(page),
@@ -51,6 +60,11 @@ export const test = base.extend<{ pages: Pages; loginFlow: LoginFlow; cartFlow: 
   checkoutFlow: async ({ cartFlow, pages }, use) => {
     const checkoutFlow = new CheckoutFlow(pages.cartPage, pages.checkoutPage, pages.finishPage, pages.completePage);
     await use(checkoutFlow);
+  },
+
+  bookingClient: async ({ request }, use) => {
+    const bookingClient = new BookingClient(request);
+    await use(bookingClient);
   },
 });
 
