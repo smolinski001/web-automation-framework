@@ -16,22 +16,22 @@ export class BookingClient {
   }
 
   async getBookingFull(id: number) {
-    return await this.request.get(`${this.baseUrl}/${id}`);
+    return await this.request.get(`${this.baseUrl}/booking/${id}`);
   }
 
   async createBooking(booking: BookingClientsCreate) {
-    return await this.request.post(`${this.baseUrl}`, { data: booking });
+    return await this.request.post(`${this.baseUrl}/booking/`, { data: booking });
   }
 
   async updateBooking(id: number, booking: BookingClientsCreate) {
-    return await this.request.put(`${this.baseUrl}/${id}`, { data: booking });
+    return await this.request.put(`${this.baseUrl}/booking/${id}`, { data: booking });
   }
 
   async partialupdateBooking(id: number, booking: Partial<BookingClientsCreate>) {
-    return await this.request.patch(`${this.baseUrl}/${id}`, { data: booking });
+    return await this.request.patch(`${this.baseUrl}/booking/${id}`, { data: booking });
   }
 
   async deleteBooking(id: number, token: string) {
-    return await this.request.delete(`${this.baseUrl}/${id}`, { headers: { cookie: `token=${token}` } });
+    return await this.request.delete(`${this.baseUrl}/booking/${id}`, { headers: { cookie: `token=${token}` } });
   }
 }

@@ -1,40 +1,77 @@
-# Playwright-lab
+# Web Automation Framework
 
-A project for learning to write an automated testing framework using Playwright and Typescript.
+A production-style E2E and API test automation framework built with **Playwright** and **TypeScript**.
 
-# Stack
+Designed to demonstrate SDET-level architecture: layered abstraction, typed API clients, dependency injection via fixtures, and CI/CD integration.
 
-- Playwright
-- TypeScript
-- Node.js
-- dotenv
+![CI](https://github.com/smolinski001/web-automation-framework/actions/workflows/playwright.yml/badge.svg)
 
-# Setup
+---
 
-1. Clone repository.
-2. Install dependencies.
-3. Install Playwright browsers.
-4. Create local `.env` file based on `.env.example`.
+## Tech Stack
 
-Required variables:
+| Tool                                  | Purpose                          |
+| ------------------------------------- | -------------------------------- |
+| [Playwright](https://playwright.dev/) | Browser automation & test runner |
+| TypeScript                            | Type-safe test code              |
+| GitHub Actions                        | CI/CD pipeline                   |
+| dotenv                                | Local environment configuration  |
 
-- BASE_URL
-- USER_STANDARD
-- USER_LOCKED
-- USER_PASSWORD
+**Test targets:**
 
-# Running tests
+- [saucedemo.com](https://www.saucedemo.com) — E2E UI tests
+- [restful-booker.herokuapp.com](https://restful-booker.herokuapp.com) — API tests
 
-Run all tests:
-npm test
+---
 
-Run tests in Chrome only:
-npm run test:chrome
+## Architecture
 
-Open Playwright report:
-npm run report
+```
+web-automation-framework/
+├── framework/
+│   ├── pages/       # Page Object Model — selectors & page actions
+│   ├── flows/       # Flow Layer — multi-step business scenarios
+│   ├── fixtures/    # Dependency injection via base.extend()
+│   ├── api/
+│   │   ├── clients/ # Typed REST clients
+│   │   └── dto/     # Request / response interfaces
+│   └── data/        # Test users and static data
+├── tests/
+│   ├── login/
+│   ├── inventory/
+│   ├── finish/
+│   └── api/
+├── docs/
+│   ├── TEST_PLAN.md
+│   └── ADR.md
+└── playwright.config.ts
+```
 
-# Current status
+---
 
-- Framework divided into fixtures, flows, pages, data, and separate tests.
-- Tests divided into the login process, adding products to the cart, and basic API tests.
+## Setup
+
+Clone repositories:
+
+```bash
+git clone https://github.com/smolinski001/web-automation-framework.git
+cd web-automation-framework
+npm install
+npx playwright install
+```
+
+Run tests:
+
+```bash
+npm test                  # all tests
+npm run test:chrome       # Chrome only
+npm run test:headed       # visible browser
+npm run report            # open HTML report
+```
+
+---
+
+## Documentation
+
+- [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md) — test strategy and test cases
+- [`docs/ADR.md`](docs/ADR.md) — architecture decisions and rationale
