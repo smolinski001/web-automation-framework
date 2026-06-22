@@ -43,7 +43,6 @@ web-automation-framework/
 │   └── api/
 ├── docs/
 │   ├── TEST_PLAN.md
-│   └── ADR.md
 └── playwright.config.ts
 ```
 
@@ -74,4 +73,3 @@ npm run report            # open HTML report
 ## Documentation
 
 - [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md) — test strategy and test cases
-- [`docs/ADR.md`](docs/ADR.md) — architecture decisions and rationale
