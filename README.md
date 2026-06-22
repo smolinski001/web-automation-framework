@@ -50,7 +50,7 @@ web-automation-framework/
 
 ## Setup
 
-Clone repositories:
+Clone repository:
 
 ```bash
 git clone https://github.com/smolinski001/web-automation-framework.git
